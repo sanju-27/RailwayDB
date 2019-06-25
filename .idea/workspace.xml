@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="8" />
+    <option name="CUSTOM_SCOPE_NAME" value="Selection" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="e46c4c1e-fc32-4bb7-926c-90179b7f0943" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/company/DBReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/Log.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RailwayDB/com/company/DBWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RailwayDB/com/company/DBWriter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RailwayDB/com/company/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RailwayDB/com/company/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/DBWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/DBWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/DBWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-199">
-              <caret line="158" column="16" selection-start-line="158" selection-start-column="16" selection-end-line="158" selection-end-column="16" />
+            <state relative-caret-position="323">
+              <caret line="259" column="33" lean-forward="true" selection-start-line="259" selection-start-column="33" selection-end-line="259" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -89,8 +87,8 @@
       <list>
         <option value="$PROJECT_DIR$/src/com/company/Log.java" />
         <option value="$PROJECT_DIR$/src/com/company/Main.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DBWriter.java" />
         <option value="$PROJECT_DIR$/src/com/company/DBReader.java" />
+        <option value="$PROJECT_DIR$/src/com/company/DBWriter.java" />
       </list>
     </option>
   </component>
@@ -188,7 +186,7 @@
       <updated>1561380678371</updated>
       <workItem from="1561380682184" duration="24228000" />
       <workItem from="1561458110064" duration="153000" />
-      <workItem from="1561458287839" duration="8707000" />
+      <workItem from="1561458287839" duration="9575000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1561388080015</created>
@@ -201,13 +199,14 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33088000" />
+    <option name="totallyTimeSpent" value="33956000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4978903" visible="true" weight="0.13117409" />
-      <window_info id="Structure" order="1" sideWeight="0.5021097" side_tool="true" visible="true" weight="0.13117409" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49898168" visible="true" weight="0.13117409" />
+      <window_info active="true" id="Structure" order="1" sideWeight="0.50101835" side_tool="true" visible="true" weight="0.13117409" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -226,7 +225,7 @@
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50040483" side_tool="true" weight="0.29129663" />
       <window_info anchor="bottom" id="Messages" order="11" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="13" visible="true" weight="0.15808171" />
+      <window_info anchor="bottom" id="Version Control" order="13" visible="true" weight="0.12788633" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -327,8 +326,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/DBWriter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-199">
-          <caret line="158" column="16" selection-start-line="158" selection-start-column="16" selection-end-line="158" selection-end-column="16" />
+        <state relative-caret-position="323">
+          <caret line="259" column="33" lean-forward="true" selection-start-line="259" selection-start-column="33" selection-end-line="259" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

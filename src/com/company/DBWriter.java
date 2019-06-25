@@ -233,18 +233,31 @@ public class DBWriter {
         String type = br.readLine();
         System.out.print("Enter Count: ");
         int co = Integer.parseInt(br.readLine());
+        String status = "CNF";
         int cost;
-        if(type.equalsIgnoreCase("SL"))
-            cost = slp*co;
-        else
-            cost = acp*co;
+        if(type.equalsIgnoreCase("SL")) {
+            cost = slp * co;
+        }
+        else {
+            cost = acp * co;
+        }
         if (tat)
+        {
             type += "TAT";
+        }
+        if(type.equalsIgnoreCase("SL") && sl==0)
+            status = "WL";
+        if(type.equalsIgnoreCase("SLTAT") && slt==0)
+            status = "WL";
+        if(type.equalsIgnoreCase("AC") && ac==0)
+            status = "WL";
+        if(type.equalsIgnoreCase("ACTAT") && act==0)
+            status = "WL";
         int statno = this.updateTrain(datestr, train_no, co, type);
         ps1 = con.prepareStatement("INSERT INTO ticket(uid,statno,status,count,cost) VALUES(?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
         ps1.setInt(1, uid);
         ps1.setInt(2, statno);
-        ps1.setString(3, "CNF");
+        ps1.setString(3, status);
         ps1.setInt(4,co);
         ps1.setString(5,Integer.toString(cost));
         ps1.executeUpdate();
