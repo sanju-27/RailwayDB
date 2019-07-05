@@ -16,23 +16,18 @@ public class DBWriter {
     private static String writeTrain = "INSERT INTO train(trainno,source,dest,genprice,acprice,gen,ac,gtat,atat,class,workdays) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
     private static String fetch = "SELECT * FROM train_status WHERE trainno = ? AND date = ?";
     private static String newstatus = "INSERT INTO train_status(date,gen,ac,gentat,actat,trainno) VALUES (?,?,?,?,?,?)";
-    private static String updatestatus = "UPDATE train_status SET ? = ? WHERE tid = ?";
     private static String insertUser = "INSERT INTO user(name,pwd,phno,age) VALUES (?,?,?,?)";
     private static String available = "SELECT * FROM train WHERE source = ? AND dest = ?";
-    private static String clean = "DELETE FROM train WHERE date <= ?";
-    private static String selectAll = "Select * FROM train";
     private static int ac = 900, sl = 350;
-    Connection con;
-    BufferedReader br;
+    private Connection con;
+    private BufferedReader br;
 
-    public DBWriter() {
+    DBWriter() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             this.con = DriverManager.getConnection(dbURL, dbUser, dbPwd);
             this.br = new BufferedReader(new InputStreamReader(System.in));
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         this.dbClean();
@@ -68,7 +63,7 @@ public class DBWriter {
             pr.setInt(9, Integer.parseInt(s[6]));
             pr.setInt(10, cls);
             pr.setString(11, days);
-            int x = pr.executeUpdate();
+            pr.executeUpdate();
 //            System.out.println(x);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,7 +71,7 @@ public class DBWriter {
 
     }
 
-    int updateTrain(String date, int tno, int count, String type) {
+    private int updateTrain(String date, int tno, int count, String type) {
         int statid = 0;
         try {
             PreparedStatement ps = con.prepareStatement(fetch);
@@ -141,22 +136,25 @@ public class DBWriter {
     }
 
 
-    public void writeUser(String name, String pwd, String ph, int age) {
+    void writeUser(String name, String pwd, String ph, int age) {
 
         try {
-            PreparedStatement ps = con.prepareStatement(insertUser);
+            PreparedStatement ps = con.prepareStatement(insertUser,Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, name);
             ps.setString(2, pwd);
             ps.setString(3, ph);
             ps.setInt(4, age);
             ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if(rs.next())
+                System.out.println("User Registered. UID: "+rs.getLong(1));
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
-    public void bookTrain(int uid) throws IOException, ParseException, SQLException {
+    void bookTrain(int uid) throws IOException, ParseException, SQLException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         int count = 0;
         Calendar c = Calendar.getInstance();
@@ -234,19 +232,44 @@ public class DBWriter {
         System.out.print("Enter Count: ");
         int co = Integer.parseInt(br.readLine());
         int cost;
+<<<<<<< Updated upstream
         if(type.equalsIgnoreCase("SL"))
             cost = slp*co;
         else
             cost = acp*co;
         if (tat)
             type += "TAT";
+=======
+        if (type.equalsIgnoreCase("SL")) {
+            cost = slp * co;
+        } else {
+            cost = acp * co;
+        }
+        if (tat) {
+            type += "TAT";
+        }
+        if (type.equalsIgnoreCase("SL") && sl == 0)
+            status = "WL";
+        if (type.equalsIgnoreCase("SLTAT") && slt == 0)
+            status = "WL";
+        if (type.equalsIgnoreCase("AC") && ac == 0)
+            status = "WL";
+        if (type.equalsIgnoreCase("ACTAT") && act == 0)
+            status = "WL";
+>>>>>>> Stashed changes
         int statno = this.updateTrain(datestr, train_no, co, type);
         ps1 = con.prepareStatement("INSERT INTO ticket(uid,statno,status,count,cost) VALUES(?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
         ps1.setInt(1, uid);
         ps1.setInt(2, statno);
+<<<<<<< Updated upstream
         ps1.setString(3, "CNF");
         ps1.setInt(4,co);
         ps1.setString(5,Integer.toString(cost));
+=======
+        ps1.setString(3, status);
+        ps1.setInt(4, co);
+        ps1.setString(5, Integer.toString(cost));
+>>>>>>> Stashed changes
         ps1.executeUpdate();
         ResultSet rsx = ps1.getGeneratedKeys();
         if (rsx.next())
@@ -254,7 +277,7 @@ public class DBWriter {
 
     }
 
-    void dbClean() {
+    private void dbClean() {
         String clean = "DELETE FROM train_status WHERE statno=?";
         String sql = "SELECT * FROM train_status";
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -270,49 +293,44 @@ public class DBWriter {
                     ps.executeUpdate();
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
 
 
     }
-    int cancel(int id)
-    {
-        int pnr=-1;
+
+    int cancel(int id) {
+        int pnr = -1;
         try {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM ticket WHERE uid = ?");
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             System.out.println("Your Booked Tickets:");
-            while (rs.next())
-            {
+            while (rs.next()) {
                 System.out.println(rs.getInt(1));
             }
             System.out.print("Enter PNR to cancel: ");
             pnr = Integer.parseInt(br.readLine());
             ps = con.prepareStatement("DELETE FROM ticket WHERE pnrno = ?");
-            ps.setInt(1,pnr);
+            ps.setInt(1, pnr);
             int numrows = ps.executeUpdate();
-            if(numrows==0)
+            if (numrows == 0)
                 System.out.println("Invalid PNR");
             else
                 System.out.println("Cancelled!!!");
             ps = con.prepareStatement("SELECT * FROM ticket WHERE status = ? ORDER BY stamp DESC LIMIT 1");
-            ps.setString(1,"WL");
-            ResultSet rsf =  ps.executeQuery();
-            if(rsf.next()) {
+            ps.setString(1, "WL");
+            ResultSet rsf = ps.executeQuery();
+            if (rsf.next()) {
                 ps = con.prepareStatement("UPDATE ticket SET status = ? WHERE pnrno = ?");
                 ps.setString(1, "CNF");
                 ps.setInt(2, rsf.getInt(1));
                 ps.executeUpdate();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
-     return pnr;
+        return pnr;
     }
 }
